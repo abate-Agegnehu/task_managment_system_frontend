@@ -23,7 +23,7 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post(
+      const response = await axios.post(  
         "http://localhost:8888/api/auth/login",
         {
           email,
