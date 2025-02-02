@@ -1,7 +1,6 @@
 // src/App.js
 import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom"; // Replace Switch with Routes
-import Navbar from "./components/Navbar";
 import Login from "./components/Login";
 import Signup from "./components/Signup";
 import TaskForm from "./components/TaskForm";
