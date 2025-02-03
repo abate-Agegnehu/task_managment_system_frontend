@@ -84,11 +84,13 @@ const TaskForm = () => {
             required
           />
 
-          <FormControl fullWidth required>
-            <InputLabel>Select User</InputLabel>
+          <FormControl fullWidth variant="outlined" required>
+            <InputLabel id="assigned-to-label">Assigned To</InputLabel>
             <Select
+              labelId="assigned-to-label"
               value={assignedTo}
               onChange={(e) => setAssignedTo(e.target.value)}
+              label="Assigned To"
             >
               {users.map((user) => (
                 <MenuItem key={user._id} value={user._id}>
@@ -98,9 +100,14 @@ const TaskForm = () => {
             </Select>
           </FormControl>
 
-          <FormControl fullWidth required>
-            <InputLabel>Select Status</InputLabel>
-            <Select value={status} onChange={(e) => setStatus(e.target.value)}>
+          <FormControl fullWidth variant="outlined" required>
+            <InputLabel id="status-label">Select Status</InputLabel>
+            <Select
+              labelId="status-label"
+              value={status}
+              onChange={(e) => setStatus(e.target.value)}
+              label="Select Status"
+            >
               {statusList.map((status, index) => (
                 <MenuItem key={index} value={status}>
                   {status}
