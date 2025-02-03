@@ -17,13 +17,13 @@ const TaskEdit = () => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [assignedTo, setAssignedTo] = useState("");
-  const [status, setStatus] = useState("");
+  // const [status, setStatus] = useState("");
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const { id } = useParams();
 
-  const statusList = ["To Do", "In Progress", "Pending", "On Hold"];
+  // const statusList = ["To Do", "In Progress", "Pending", "On Hold"];
 
   useEffect(() => {
     const fetchData = async () => {
@@ -46,7 +46,7 @@ const TaskEdit = () => {
         setTitle(taskRes.data.title);
         setDescription(taskRes.data.description);
         setAssignedTo(taskRes.data.assignedTo._id);
-        setStatus(taskRes.data.status);
+        // setStatus(taskRes.data.status);
       } catch (error) {
         console.error("Error fetching data:", error);
       } finally {
@@ -59,7 +59,7 @@ const TaskEdit = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!title || !description || !assignedTo || !status) {
+    if (!title || !description || !assignedTo ) {
       alert("Please fill out all fields before submitting.");
       return;
     }
@@ -68,7 +68,7 @@ const TaskEdit = () => {
     try {
       await axios.put(
         `https://task-management-system-backend-orcin.vercel.app/api/tasks/${id}`,
-        { title, description, assignedTo, status },
+        { title, description, assignedTo },
         {
           headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
         }
@@ -130,7 +130,7 @@ const TaskEdit = () => {
                   </MenuItem>
                 ))}
               </TextField>
-              <TextField
+              {/* <TextField
                 select
                 fullWidth
                 label="Status"
@@ -144,7 +144,7 @@ const TaskEdit = () => {
                     {s}
                   </MenuItem>
                 ))}
-              </TextField>
+              </TextField> */}
               <Button
                 type="submit"
                 fullWidth
