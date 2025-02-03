@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import {
   Container,
@@ -23,6 +23,7 @@ const TaskList = () => {
   const [tasks, setTasks] = useState([]);
   const [openDialog, setOpenDialog] = useState(false);
   const [selectedTask, setSelectedTask] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchTasks = async () => {
@@ -60,6 +61,31 @@ const TaskList = () => {
     } catch (error) {
       console.error("Error deleting task:", error);
       alert("Failed to delete task.");
+    }
+  };
+
+  const handleComplete = async (task) => {
+    try {
+      await axios.put(
+        `https://task-management-system-backend-orcin.vercel.app/api/tasks/${task._id}`,
+        {
+          title: task.title,
+          description: task.description,
+          assignedTo: task.assignedTo,
+          status: "Completed",
+        },
+        {
+          headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+        }
+      );
+
+      setTasks((prevTasks) =>
+        prevTasks.map((t) =>
+          t._id === task._id ? { ...t, status: "Completed" } : t
+        )
+      );
+    } catch (error) {
+      console.error("Error updating task:", error);
     }
   };
 
@@ -103,28 +129,38 @@ const TaskList = () => {
                 {task.description}
               </Typography>
               <Typography variant="body2" color="text.secondary" mb={2}>
-                Status : {task.status}
+                Status: {task.status}
               </Typography>
               <Typography variant="body2" color="text.secondary" mb={2}>
-                Assined To : {task.assignedTo.username}
+                Assigned To: {task.assignedTo?.username || "Not Assigned"}
               </Typography>
-              <Box display="flex" justifyContent="flex-end" gap={1}>
-                <IconButton
-                  component={Link}
-                  to={`/tasks/edit/${task._id}`}
-                  sx={{ color: "#1976d2" }}
+              <Box display="flex" justifyContent="space-between">
+                <Button
+                  variant="contained"
+                  color="success"
+                  onClick={() => handleComplete(task)}
+                  disabled={task.status === "Completed"}
                 >
-                  <EditIcon />
-                </IconButton>
-                <IconButton
-                  sx={{ color: "#d32f2f" }}
-                  onClick={() => {
-                    setSelectedTask(task);
-                    setOpenDialog(true);
-                  }}
-                >
-                  <DeleteIcon />
-                </IconButton>
+                  Complete
+                </Button>
+                <Box display="flex" gap={1}>
+                  <IconButton
+                    component={Link}
+                    to={`/tasks/edit/${task._id}`}
+                    sx={{ color: "#1976d2" }}
+                  >
+                    <EditIcon />
+                  </IconButton>
+                  <IconButton
+                    sx={{ color: "#d32f2f" }}
+                    onClick={() => {
+                      setSelectedTask(task);
+                      setOpenDialog(true);
+                    }}
+                  >
+                    <DeleteIcon />
+                  </IconButton>
+                </Box>
               </Box>
             </CardContent>
           </Card>
