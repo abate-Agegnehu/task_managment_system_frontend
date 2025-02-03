@@ -17,10 +17,9 @@ const TaskForm = () => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [assignedTo, setAssignedTo] = useState("");
-  const [status, setStatus] = useState("");
   const [users, setUsers] = useState([]);
   const navigate = useNavigate();
-  const statusList = ["To Do", "In Progress", "Pending", "On Hold"];
+  // const statusList = ["To Do", "In Progress", "Pending", "Completed"];
 
   useEffect(() => {
     axios
@@ -34,15 +33,16 @@ const TaskForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!title || !description || !assignedTo || !status) {
+    if (!title || !description || !assignedTo ) {
       alert("Please fill out all fields before submitting.");
       return;
     }
 
     try {
+      console.log(status);
       await axios.post(
         "https://task-management-system-backend-orcin.vercel.app/api/tasks",
-        { title, description, assignedTo, status },
+        { title, description, assignedTo },
         {
           headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
         }
@@ -100,7 +100,7 @@ const TaskForm = () => {
             </Select>
           </FormControl>
 
-          <FormControl fullWidth variant="outlined" required>
+          {/* <FormControl fullWidth variant="outlined" required>
             <InputLabel id="status-label">Select Status</InputLabel>
             <Select
               labelId="status-label"
@@ -114,7 +114,7 @@ const TaskForm = () => {
                 </MenuItem>
               ))}
             </Select>
-          </FormControl>
+          </FormControl> */}
 
           <Button
             type="submit"
