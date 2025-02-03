@@ -131,7 +131,6 @@ const TaskEdit = () => {
                 ))}
               </TextField>
               <TextField
-                select
                 fullWidth
                 label="Status"
                 value={status}
