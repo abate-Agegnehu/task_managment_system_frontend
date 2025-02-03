@@ -67,7 +67,7 @@ const TaskEdit = () => {
     setLoading(true);
     try {
       await axios.put(
-        `http://localhost:8888/api/tasks/${id}`,
+        `https://task-management-system-backend-orcin.vercel.app/api/tasks/${id}`,
         { title, description, assignedTo, status },
         {
           headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
