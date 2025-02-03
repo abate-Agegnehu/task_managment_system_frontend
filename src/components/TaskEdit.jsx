@@ -17,7 +17,7 @@ const TaskEdit = () => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [assignedTo, setAssignedTo] = useState("");
-  // const [status, setStatus] = useState("");
+  const [status, setStatus] = useState("");
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
@@ -46,7 +46,7 @@ const TaskEdit = () => {
         setTitle(taskRes.data.title);
         setDescription(taskRes.data.description);
         setAssignedTo(taskRes.data.assignedTo._id);
-        // setStatus(taskRes.data.status);
+        setStatus(taskRes.data.status);
       } catch (error) {
         console.error("Error fetching data:", error);
       } finally {
@@ -130,7 +130,7 @@ const TaskEdit = () => {
                   </MenuItem>
                 ))}
               </TextField>
-              {/* <TextField
+              <TextField
                 select
                 fullWidth
                 label="Status"
@@ -139,12 +139,8 @@ const TaskEdit = () => {
                 margin="normal"
                 required
               >
-                {statusList.map((s, index) => (
-                  <MenuItem key={index} value={s}>
-                    {s}
-                  </MenuItem>
-                ))}
-              </TextField> */}
+                {status}
+              </TextField>
               <Button
                 type="submit"
                 fullWidth
