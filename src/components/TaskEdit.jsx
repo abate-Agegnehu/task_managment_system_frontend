@@ -35,7 +35,7 @@ const TaskEdit = () => {
         setUsers(userRes.data);
 
         const taskRes = await axios.get(
-          `http://localhost:8888/api/tasks/${id}`,
+          `https://task-management-system-backend-orcin.vercel.app/api/tasks/${id}`,
           {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("token")}`,

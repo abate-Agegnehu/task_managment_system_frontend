@@ -49,7 +49,7 @@ const TaskList = () => {
 
     try {
       await axios.delete(
-        `http://localhost:8888/api/tasks/${selectedTask._id}`,
+        `https://task-management-system-backend-orcin.vercel.app/api/tasks/${selectedTask._id}`,
         {
           headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
         }
@@ -103,7 +103,7 @@ const TaskList = () => {
                 {task.description}
               </Typography>
               <Typography variant="body2" color="text.secondary" mb={2}>
-              Status :  {task.status}
+                Status : {task.status}
               </Typography>
               <Typography variant="body2" color="text.secondary" mb={2}>
                 Assined To : {task.assignedTo.username}
