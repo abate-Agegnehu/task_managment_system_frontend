@@ -23,7 +23,7 @@ const TaskEdit = () => {
   const navigate = useNavigate();
   const { id } = useParams();
 
-  // const statusList = ["To Do", "In Progress", "Pending", "On Hold"];
+  const statusList = ["Completed", "Incomplete"];
 
   useEffect(() => {
     const fetchData = async () => {
@@ -59,7 +59,7 @@ const TaskEdit = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!title || !description || !assignedTo ) {
+    if (!title || !description || !assignedTo || !status) {
       alert("Please fill out all fields before submitting.");
       return;
     }
@@ -68,7 +68,7 @@ const TaskEdit = () => {
     try {
       await axios.put(
         `https://task-management-system-backend-orcin.vercel.app/api/tasks/${id}`,
-        { title, description, assignedTo },
+        { title, description, assignedTo, status },
         {
           headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
         }
@@ -131,6 +131,7 @@ const TaskEdit = () => {
                 ))}
               </TextField>
               <TextField
+                select
                 fullWidth
                 label="Status"
                 value={status}
@@ -138,7 +139,11 @@ const TaskEdit = () => {
                 margin="normal"
                 required
               >
-                {status}
+                {statusList.map((s, index) => (
+                  <MenuItem key={index} value={s}>
+                    {s}
+                  </MenuItem>
+                ))}
               </TextField>
               <Button
                 type="submit"
