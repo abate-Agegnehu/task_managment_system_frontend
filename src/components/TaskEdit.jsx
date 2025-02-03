@@ -29,7 +29,9 @@ const TaskEdit = () => {
     const fetchData = async () => {
       try {
         setLoading(true);
-        const userRes = await axios.get("http://localhost:8888/api/auth/users");
+        const userRes = await axios.get(
+          "https://task-management-system-backend-orcin.vercel.app/api/auth/users"
+        );
         setUsers(userRes.data);
 
         const taskRes = await axios.get(

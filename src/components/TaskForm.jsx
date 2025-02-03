@@ -24,7 +24,9 @@ const TaskForm = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8888/api/auth/users")
+      .get(
+        "https://task-management-system-backend-orcin.vercel.app/api/auth/users"
+      )
       .then((res) => setUsers(res.data))
       .catch((err) => console.error("Error fetching users:", err));
   }, []);

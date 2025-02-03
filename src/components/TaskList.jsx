@@ -27,9 +27,14 @@ const TaskList = () => {
   useEffect(() => {
     const fetchTasks = async () => {
       try {
-        const response = await axios.get("http://localhost:8888/api/tasks", {
-          headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
-        });
+        const response = await axios.get(
+          "https://task-management-system-backend-orcin.vercel.app/api/tasks",
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+          }
+        );
         setTasks(response.data);
       } catch (error) {
         console.error("Error fetching tasks:", error);

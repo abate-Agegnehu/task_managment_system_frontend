@@ -23,11 +23,14 @@ const Signup = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post("http://localhost:8888/api/auth/register", {
-        username,
-        email,
-        password,
-      });
+      await axios.post(
+        "https://task-management-system-backend-orcin.vercel.app/api/auth/register",
+        {
+          username,
+          email,
+          password,
+        }
+      );
 
       navigate("/");
     } catch (error) {
